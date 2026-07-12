@@ -4,7 +4,7 @@
   "scripts": {
     "install:all": "pnpm --dir ConCat_client install && pnpm --dir ConCat_server install",
     "build:client": "pnpm --dir ConCat_client run build",
-    "build:server": "pnpm --dir ConCat_server run build",
+    "build:server": "pnpm --dir ConCat_server exec prisma generate && pnpm --dir ConCat_server run build",
     "build:app": "pnpm run build:client && pnpm run build:server",
     "start": "pnpm --dir ConCat_server run start:prod",
     "dev": "concurrently \"pnpm --dir ConCat_client run dev\" \"pnpm --dir ConCat_server run start:dev \""

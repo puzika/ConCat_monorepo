@@ -46,7 +46,7 @@ export class SocketService implements OnGatewayConnection, OnGatewayDisconnect {
     const parsedData = z.object({ 
       Access: z.string(), 
       Refresh: z.string().nullable().optional() 
-    }).safeParse(parsedCookie);
+    }).safeParse(dataToValidate);
 
     if (!parsedData.success) {
       client.disconnect();

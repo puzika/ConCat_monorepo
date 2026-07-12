@@ -7,12 +7,15 @@ import {
   Body,
   Param,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ZodValidationPipe } from 'nestjs-zod';
 import { MessageDto } from 'src/shared/dto/messages.dto';
 import { MessageUpdateDto } from './dto/messages.update.dto';
 import { MessagesService } from './messages.service';
+import { AtGuard } from 'src/common/guards';
 
+@UseGuards(AtGuard)
 @Controller('chats/:chatId/messages')
 export class MessagesController {
   constructor (private readonly messagesService: MessagesService) {}

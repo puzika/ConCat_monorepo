@@ -7,12 +7,15 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './users.service';
 import { UserUpdateDto } from './dto/user.update.dto';
 import { ZodValidationPipe } from 'nestjs-zod';
 import { GetCurrentUser } from 'src/common/decorators';
+import { AtGuard } from 'src/common/guards';
 
+@UseGuards(AtGuard)
 @Controller('users')
 export class UserController {
   constructor (private readonly userService: UserService) {}

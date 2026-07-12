@@ -14,6 +14,7 @@ ConCat_client/.env.*.local
 
 # Backend
 ConCat_server/node_modules/
+ConCat_server/client
 ConCat_server/dist/
 ConCat_server/.env
 ConCat_server/.env.local

@@ -6,13 +6,16 @@ import {
   Param,
   Body,
   Query,
+  UseGuards,
   ParseIntPipe
 } from '@nestjs/common';
 import { ZodValidationPipe } from 'nestjs-zod';
 import { ChatsService } from './chats.service';
 import { SocketService } from 'src/socket/socket.service';
 import { ChatsDto } from 'src/shared/dto/chats.create.dto';
+import { AtGuard } from 'src/common/guards';
 
+@UseGuards(AtGuard)
 @Controller('chats')
 export class ChatsController {
   constructor(

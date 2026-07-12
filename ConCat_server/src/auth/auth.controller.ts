@@ -12,10 +12,11 @@ import { AuthService } from './auth.service';
 import { ZodValidationPipe } from 'nestjs-zod';
 import { SignupDto, SigninDto } from './dto';
 import { GetCurrentUser, Public } from 'src/common/decorators';
-import { RtGuard } from 'src/common/guards';
+import { AtGuard, RtGuard } from 'src/common/guards';
 import type { Tokens } from './types';
 import type { Request, Response } from 'express';
 
+@UseGuards(AtGuard)
 @Controller('auth')
 export class AuthController {
   constructor (private readonly authService: AuthService){}

@@ -1,0 +1,46 @@
+import styled, { css } from "styled-components";
+import { vars } from "../../../shared/styles";
+import { Link } from "react-router-dom";
+
+const ellipsis = css`
+  max-width: 95%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+`;
+
+export const ChatItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .8rem ${vars.primaryPadding};
+  cursor: pointer;
+  transition: background-color .2s;
+
+  &:hover {
+    background-color: ${vars.primaryClrLt};
+  }
+`;
+
+export const ChatItemOld = styled(Link)`
+  display: block;
+`;
+
+export const ChatItemDescription = styled.div`
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+`;
+
+export const ChatItemName = styled.p`
+  font-weight: 600;
+  ${ ellipsis };
+`;
+
+export const ChatItemLastSeen = styled.p`
+  font-size: 1.3rem;
+  color: ${vars.fontClrLt};
+  ${ ellipsis };
+`

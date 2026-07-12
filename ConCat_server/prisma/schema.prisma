@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                   Int             @id @default(autoincrement())
+  username             String
+  email                String          @unique
+  password             String
+  refresh              Refresh_token[]
+  participant_one_chat Chat[]          @relation("participant one")
+  participant_two_chat Chat[]          @relation("participant two")
+  sent_messages        Message[]
+  is_online            Boolean         @default(false)
+  last_seen            DateTime?
+
+  @@index([username])
+}
+
+model Refresh_token {
+  id         String   @id
+  token      String   @unique
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id    Int
+  is_used    Boolean  @default(false)
+  created_at DateTime @default(now())
+}
+
+model Chat {
+  id                 Int       @id @default(autoincrement())
+  messages           Message[]
+  participant_one    User      @relation("participant one", fields: [participant_one_id], references: [id])
+  participant_two    User      @relation("participant two", fields: [participant_two_id], references: [id])
+  participant_one_id Int
+  participant_two_id Int
+
+  @@unique([participant_one_id, participant_two_id])
+}
+
+model Message {
+  id                Int         @id @default(autoincrement())
+  client_id         String?     @unique
+  type              MessageType
+  content           String      @default("")
+  chat              Chat        @relation(fields: [chat_id], references: [id], onDelete: Cascade)
+  chat_id           Int
+  sender            User        @relation(fields: [sender_id], references: [id])
+  sender_id         Int
+  created_at        DateTime    @default(now())
+  modified_at       DateTime    @updatedAt
+  parent_message_id Int?
+  parent_message    Message?    @relation("MessageReplies", fields: [parent_message_id], references: [id])
+  reply             Message[]   @relation("MessageReplies")
+
+  @@index([chat_id])
+}
+
+enum MessageType {
+  text
+  audio
+  video
+}

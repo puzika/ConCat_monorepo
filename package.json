@@ -1,0 +1,19 @@
+{
+  "name": "concat-fullstack",
+  "version": "1.0.0",
+  "scripts": {
+    "install:all": "pnpm install --prefix ConCat_client && pnpm install --prefix ConCat_server",
+    
+    "build:client": "pnpm run build --prefix ConCat_client",
+    "build:server": "pnpm run build --prefix ConCat_server",
+    
+    "build": "pnpm run build:client && pnpm run build:server",
+    
+    "start": "pnpm run build && pnpm run start:prod --prefix ConCat_server",
+    
+    "dev": "concurrently \"pnpm run dev --prefix ConCat_client\" \"pnpm run start:dev --prefix ConCat_server\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

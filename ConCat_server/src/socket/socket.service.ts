@@ -35,15 +35,18 @@ export class SocketService implements OnGatewayConnection, OnGatewayDisconnect {
   private async extractUserId(client: Socket) {
     const rawCookie = client.handshake.headers.cookie;
 
-    if (!rawCookie) {
+    if (!rawCookie || rawCookie.trim() === '') {
       client.disconnect();
       throw new UnauthorizedException('Access unauthorized');
     }
 
+    const parsedCookie = cookie.parse(rawCookie);
+    const dataToValidate = typeof parsedCookie === 'string' ? {} : parsedCookie;
+
     const parsedData = z.object({ 
       Access: z.string(), 
       Refresh: z.string().nullable().optional() 
-    }).safeParse(cookie.parse(rawCookie));
+    }).safeParse(parsedCookie);
 
     if (!parsedData.success) {
       client.disconnect();

@@ -6,7 +6,6 @@ import { setMessageState } from '../../../entities/message/model/messageSlice';
 import { selectUserId } from '../../../entities/user';
 import { selectMessageId, selectMessageStatus, selectMessageContent } from '../../../entities/message/model/messageSlice';
 import { useCreateMessage } from '../api/newMessage.query';
-import { AttachmentBtn } from './AttachmentBtn';
 import { MessageInput } from './MessageInput';
 import { SendBtn } from './SendBtn';
 import { MessageActionBar } from './MessageActionsBar';
@@ -63,7 +62,6 @@ export const MessageBar = () => {
     <S.MessageBar>
       <MessageActionBar action={messageStatus} content={messageContent} />
       <S.MessageBarTools onSubmit={handleSubmission}>
-        <AttachmentBtn />
         <MessageInput
           value={text}
           setter={setText}

@@ -86,9 +86,7 @@ export const Message = ({ id, message, messageType, timestamp, optimistic, edite
     actionsRef.current?.hidePopover();
   }
 
-  const navigateToParent = (e: MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-
+  const navigateToParent = () => {
     if (!parent) return;
 
     const target = document.getElementById(`msg-${chatId}-${parent.id}`);
@@ -97,6 +95,16 @@ export const Message = ({ id, message, messageType, timestamp, optimistic, edite
       behavior: 'smooth',
       block: 'nearest',
     })
+  }
+
+  const navigateToParentOnClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    navigateToParent();
+  }
+
+  const navigateToParentOnTouch = (e: TouchEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    navigateToParent();
   }
 
   const actions: MessageAction[] = [
@@ -120,7 +128,7 @@ export const Message = ({ id, message, messageType, timestamp, optimistic, edite
       $messageType={messageType}
     >
       { parent && (
-        <S.MessageParent onClick={navigateToParent} $messageType={messageType}>
+        <S.MessageParent onClick={navigateToParentOnClick} onTouchEnd={navigateToParentOnTouch} $messageType={messageType}>
           <S.MessageParentSender>{ parent.sender?.username}</S.MessageParentSender>
           <S.MessageParentContent>{ parent.content }</S.MessageParentContent  >
         </S.MessageParent>

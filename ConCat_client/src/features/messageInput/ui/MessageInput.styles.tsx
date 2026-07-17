@@ -8,13 +8,13 @@ export const Input = styled.div`
   min-width: 0;
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   cursor: text;
 `;
 
 export const Placeholder = styled.p`
   position: absolute;
-  left: 1rem;
+  left: 1.5rem;
   top: 50%;
   translate: 0 -50%;
   color: ${vars.primaryClrLtr};
